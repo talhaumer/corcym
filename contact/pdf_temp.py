@@ -1,16 +1,18 @@
 import pdfkit
+
 from corcym.settings import WKHTMLTOPDF
 
+
 def convertTuple(tup):
-        # initialize an empty string
-    str = ''
+    # initialize an empty string
+    str = ""
     for item in tup:
         str = str + item
     return str
 
 
 def genrate_contact_pdf(data, path):
-	table_html = '''<!DOCTYPE html>
+    table_html = """<!DOCTYPE html>
 	<html>
 	<head>
 	<style>
@@ -116,37 +118,32 @@ def genrate_contact_pdf(data, path):
 
 	</body>
 	</html>
-		'''
-	
+		"""
 
+    new_notes = data["notes"].replace("\\n", "<br>")
+    new_comments = data["comment"].replace("\\n", "<br>")
 
-        
-   
-	new_notes = data['notes'].replace("\\n", "<br>")
-	new_comments = data['comment'].replace("\\n", "<br>")
+    table_html = table_html.replace("$(name)", data["name"])
+    table_html = table_html.replace("$(surname)", data["surname"])
+    table_html = table_html.replace("$(email)", data["email"])
+    table_html = table_html.replace("$(notes)", new_notes)
+    table_html = table_html.replace("$(country)", data["country"])
+    table_html = table_html.replace("$(city)", data["city"])
+    table_html = table_html.replace("$(comment)", new_comments)
+    table_html = table_html.replace("$(name_of_hospital)", data["name_of_hospital"])
+    table_html = table_html.replace("$(interest_in)", data["interest_in"])
+    table_html = table_html.replace("$(i_would_like_to)", str(data["i_would_like_to"]))
+    table_html = table_html.replace("$(specialty)", str(data["specialty"]))
 
-	table_html = table_html.replace("$(name)", data['name'])
-	table_html = table_html.replace("$(surname)",data['surname'])
-	table_html = table_html.replace("$(email)", data['email'])
-	table_html = table_html.replace("$(notes)", new_notes)
-	table_html = table_html.replace("$(country)", data['country'])
-	table_html = table_html.replace("$(city)", data['city'])
-	table_html = table_html.replace("$(comment)",  new_comments)
-	table_html = table_html.replace("$(name_of_hospital)",  data['name_of_hospital'])
-	table_html = table_html.replace("$(interest_in)", data['interest_in'])
-	table_html = table_html.replace("$(i_would_like_to)", str(data['i_would_like_to']))
-	table_html = table_html.replace("$(specialty)", str(data['specialty']))
-	
-	options = {
-    'page-size':'A4',
-    'encoding':'utf-8', 
-    'margin-top':'0cm',
-    'margin-bottom':'0cm',
-    'margin-left':'0cm',
-    'margin-right':'0cm'
+    options = {
+        "page-size": "A4",
+        "encoding": "utf-8",
+        "margin-top": "0cm",
+        "margin-bottom": "0cm",
+        "margin-left": "0cm",
+        "margin-right": "0cm",
     }
-	config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF)
-	pdfkit.from_string(table_html, output_path = path, configuration = config,   options=options)
-	# pdfkit.from_string(table_html, output_path = path, options=options)
-	# print('/////')
-	# pdfkit.from_string(table_html, output_path = "D:\\corcym-BE\\sample_table.pdf", configuration = config)
+    config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF)
+    pdfkit.from_string(
+        table_html, output_path=path, configuration=config, options=options
+    )

@@ -1,11 +1,13 @@
+from functools import partial
+
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph
-from functools import partial
 
 styles = getSampleStyleSheet()
-styleN = styles['Normal']
-styleH = styles['Heading1']
+styleN = styles["Normal"]
+styleH = styles["Heading1"]
+
 
 def header(canvas, doc, content):
     canvas.saveState()
@@ -13,10 +15,15 @@ def header(canvas, doc, content):
     content.drawOn(canvas, doc.leftMargin, doc.height + doc.topMargin - h)
     canvas.restoreState()
 
-doc = BaseDocTemplate('test.pdf', pagesize=letter)
-frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height-2, id='normal')
-header_content = Paragraph("This is a multi-line header.  It goes on every page.  " * 8, styleN)
-template = PageTemplate(id='test', frames=frame, onPage=partial(header, content=header_content))
+
+doc = BaseDocTemplate("test.pdf", pagesize=letter)
+frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height - 2, id="normal")
+header_content = Paragraph(
+    "This is a multi-line header.  It goes on every page.  " * 8, styleN
+)
+template = PageTemplate(
+    id="test", frames=frame, onPage=partial(header, content=header_content)
+)
 doc.addPageTemplates([template])
 
 text = []

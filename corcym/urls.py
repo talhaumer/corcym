@@ -13,26 +13,33 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include, re_path
 import oauth2_provider.views as oauth2_views
 from django.conf.urls import include
-from django.urls import path, re_path
+from django.contrib import admin
+from django.urls import include, path, re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('support/', include('support.urls')),
-    path('news/', include('news.urls')),
-    path('users/', include('users.urls')),
-    path('career/', include('career.urls')),
-    path('webinars/', include('webinars.urls')),
-    path('contact/', include('contact.urls')),
-    path('products/', include('products.urls')),
-    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    re_path(r'^oauth/authorize/$', oauth2_views.AuthorizationView.as_view(), name="authorize"),
-    re_path(r'^oauth/token/$', oauth2_views.TokenView.as_view(), name="token"),
-    re_path(r'^oauth/revoke-token/$', oauth2_views.RevokeTokenView.as_view(), name="revoke-token"),
+    path("admin/", admin.site.urls),
+    path("support/", include("support.urls")),
+    path("news/", include("news.urls")),
+    path("users/", include("users.urls")),
+    path("career/", include("career.urls")),
+    path("webinars/", include("webinars.urls")),
+    path("contact/", include("contact.urls")),
+    path("products/", include("products.urls")),
+    path("o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
+    re_path(
+        r"^oauth/authorize/$",
+        oauth2_views.AuthorizationView.as_view(),
+        name="authorize",
+    ),
+    re_path(r"^oauth/token/$", oauth2_views.TokenView.as_view(), name="token"),
+    re_path(
+        r"^oauth/revoke-token/$",
+        oauth2_views.RevokeTokenView.as_view(),
+        name="revoke-token",
+    ),
 ]

@@ -1,19 +1,17 @@
 import pdfkit
-# from corcym.settings import WKHTMLTOPDF
-
 
 
 def convertTuple(tup):
-        # initialize an empty string
-    str = ''
+    # initialize an empty string
+    str = ""
     for item in tup:
         str = str + item
     return str
 
 
 def genrate_pdf(data, path):
-	try:
-		table_html = '''<!DOCTYPE html>
+    try:
+        table_html = """<!DOCTYPE html>
 		<html>
 		<head>
 		<style>
@@ -63,27 +61,26 @@ def genrate_pdf(data, path):
 		 
 		</body>
 		</html>
-			'''
+			"""
 
-		new_notes = data['notes'].replace("\\n", "<br>")
-		
-		table_html = table_html.replace("$(name)", convertTuple(data['first_name']))
-		table_html = table_html.replace("$(last_name)", convertTuple(data['last_name']))
-		table_html = table_html.replace("$(email)", convertTuple(data['email']))
-		table_html = table_html.replace("$(notes)", new_notes)
-		table_html = table_html.replace("$(job_title)", convertTuple(data['job_title']))
-		options = {
-	    'page-size':'A4',
-	    'encoding':'utf-8', 
-	    'margin-top':'0cm',
-	    'margin-bottom':'0cm',
-	    'margin-left':'0cm',
-	    'margin-right':'0cm'
-	    }
-		# config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF)
-		# pdfkit.from_string(table_html, output_path = path,configuration = config,  options=options)
-		pdfkit.from_string(table_html, output_path = path,  options=options)
+        new_notes = data["notes"].replace("\\n", "<br>")
 
-		return "True"
-	except Exception as e:
-		return str(e)
+        table_html = table_html.replace("$(name)", convertTuple(data["first_name"]))
+        table_html = table_html.replace("$(last_name)", convertTuple(data["last_name"]))
+        table_html = table_html.replace("$(email)", convertTuple(data["email"]))
+        table_html = table_html.replace("$(notes)", new_notes)
+        table_html = table_html.replace("$(job_title)", convertTuple(data["job_title"]))
+        options = {
+            "page-size": "A4",
+            "encoding": "utf-8",
+            "margin-top": "0cm",
+            "margin-bottom": "0cm",
+            "margin-left": "0cm",
+            "margin-right": "0cm",
+        }
+
+        pdfkit.from_string(table_html, output_path=path, options=options)
+
+        return "True"
+    except Exception as e:
+        return str(e)

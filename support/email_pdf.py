@@ -1,9 +1,8 @@
 import pdfkit
-# from corcym.settings import WKHTMLTOPDF
 
 
 def genrate_email_pdf(data, path):
-	table_html = '''<!DOCTYPE html>
+    table_html = """<!DOCTYPE html>
 	<html>
 	<head>
 	<style>
@@ -100,31 +99,26 @@ def genrate_email_pdf(data, path):
 
 	</body>
 	</html>
-		'''
-	new_notes = data['message'].replace("\\n", "<br>")
-	print(new_notes)
+		"""
+    new_notes = data["message"].replace("\\n", "<br>")
+    print(new_notes)
 
-	table_html = table_html.replace("$(name)", data['first_name'])
-	table_html = table_html.replace("$(last_name)",data['last_name'])
-	table_html = table_html.replace("$(email)", data['email'])
-	table_html = table_html.replace("$(notes)", new_notes)
-	table_html = table_html.replace("$(country)", data['country'])
-	table_html = table_html.replace("$(i_am)",  data['i_am'])
-	table_html = table_html.replace("$(how_can_we_help)",  data['how_can_we_help'])
-	table_html = table_html.replace("$(state)", data['state'])
-	table_html = table_html.replace("$(phone_number)", data['phone_number'])
-	
-	
-	options = {
-    'page-size':'A4',
-    'encoding':'utf-8', 
-    'margin-top':'0cm',
-    'margin-bottom':'0cm',
-    'margin-left':'0cm',
-    'margin-right':'0cm'
+    table_html = table_html.replace("$(name)", data["first_name"])
+    table_html = table_html.replace("$(last_name)", data["last_name"])
+    table_html = table_html.replace("$(email)", data["email"])
+    table_html = table_html.replace("$(notes)", new_notes)
+    table_html = table_html.replace("$(country)", data["country"])
+    table_html = table_html.replace("$(i_am)", data["i_am"])
+    table_html = table_html.replace("$(how_can_we_help)", data["how_can_we_help"])
+    table_html = table_html.replace("$(state)", data["state"])
+    table_html = table_html.replace("$(phone_number)", data["phone_number"])
+
+    options = {
+        "page-size": "A4",
+        "encoding": "utf-8",
+        "margin-top": "0cm",
+        "margin-bottom": "0cm",
+        "margin-left": "0cm",
+        "margin-right": "0cm",
     }
-	# config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF)
-	# pdfkit.from_string(table_html, output_path = path, configuration = config,   options=options)
-	pdfkit.from_string(table_html, output_path = path, options=options)
-	# print('/////')
-	# pdfkit.from_string(table_html, output_path = "D:\\corcym-BE\\sample_table.pdf", configuration = config)
+    pdfkit.from_string(table_html, output_path=path, options=options)

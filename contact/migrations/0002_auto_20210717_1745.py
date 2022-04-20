@@ -6,17 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contact', '0001_initial'),
+        ("contact", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='contact',
-            name='interest_in',
+            model_name="contact",
+            name="interest_in",
         ),
         migrations.AddField(
-            model_name='contact',
-            name='interest_in',
-            field=models.ManyToManyField(db_column='InterestInID', default=None, related_name='interest_in_contact', to='contact.InterestIn'),
+            model_name="contact",
+            name="interest_in",
+            field=models.ManyToManyField(
+                db_column="InterestInID",
+                default=None,
+                related_name="interest_in_contact",
+                to="contact.InterestIn",
+            ),
         ),
     ]

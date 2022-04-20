@@ -1,5 +1,7 @@
 from django.contrib import admin
-from support.models import IAm, HowCanWeHelpYou, EmailSupport
+
+from support.models import EmailSupport, HowCanWeHelpYou, IAm
+
 # Register your models here.
 
 admin.site.register(IAm)

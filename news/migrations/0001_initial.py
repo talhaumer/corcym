@@ -7,22 +7,29 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='News',
+            name="News",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('news_type', models.CharField(db_column='NewsType', max_length=255)),
-                ('title', models.TextField(db_column='Title')),
-                ('description', models.TextField(db_column='Description')),
-                ('body', models.TextField(db_column='Body')),
-                ('status', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("news_type", models.CharField(db_column="NewsType", max_length=255)),
+                ("title", models.TextField(db_column="Title")),
+                ("description", models.TextField(db_column="Description")),
+                ("body", models.TextField(db_column="Body")),
+                ("status", models.BooleanField(default=True)),
             ],
             options={
-                'db_table': 'News',
+                "db_table": "News",
             },
         ),
     ]
